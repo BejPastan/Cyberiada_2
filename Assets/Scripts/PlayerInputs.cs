@@ -78,7 +78,7 @@ public class PlayerInputs : MonoBehaviour
 
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
 
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
 
         MoveRobotLeftCorutine[robotNum] = StartCoroutine(MoveRobotLeft(robotNum));
     }
@@ -87,7 +87,7 @@ public class PlayerInputs : MonoBehaviour
     {
         Debug.Log(context.phase);
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
         try
         {
             StopCoroutine(MoveRobotLeftCorutine[robotNum]);
@@ -110,7 +110,7 @@ public class PlayerInputs : MonoBehaviour
     public void MoveRobotRightStart(InputAction.CallbackContext context)
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
 
         MoveRobotRigCorutine[robotNum] = StartCoroutine(MoveRobotRight(robotNum));
     }
@@ -118,7 +118,7 @@ public class PlayerInputs : MonoBehaviour
     public void MoveRobotRightStop(InputAction.CallbackContext context)
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
         try
         {
             StopCoroutine(MoveRobotRigCorutine[robotNum]);
@@ -140,14 +140,14 @@ public class PlayerInputs : MonoBehaviour
     public void SpecialRobotStart(InputAction.CallbackContext context)
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
         special[robotNum] = true;
     }
 
     public void SpecialRobotStop(InputAction.CallbackContext context)
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
         special[robotNum] = false;
     }
 
@@ -156,7 +156,7 @@ public class PlayerInputs : MonoBehaviour
     {
         Debug.Log(context.phase);
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
-        CalcRobotNum(robotNum);
+        robotNum = CalcRobotNum(robotNum);
         if (special[robotNum])
         {
             RobotHighJump(robotNum);
