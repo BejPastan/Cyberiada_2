@@ -141,14 +141,14 @@ public class PlayerInputs : MonoBehaviour
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
         robotNum = CalcRobotNum(robotNum);
-        special[robotNum] = true;
+        robotMovements[robotNum].SpecialActionStart();
     }
 
     public void SpecialRobotStop(InputAction.CallbackContext context)
     {
         int robotNum = Mathf.RoundToInt(context.action.ReadValue<float>());
         robotNum = CalcRobotNum(robotNum);
-        special[robotNum] = false;
+        robotMovements[robotNum].SpecialActionStop();
     }
 
     //Jump
@@ -169,7 +169,7 @@ public class PlayerInputs : MonoBehaviour
 
     public void RobotHighJump(int robotNum)
     {
-        robotMovements[robotNum].HighJump();
+        robotMovements[robotNum].SpecialActionStart();
     }
 
     public void RobotJump(int robotNum)

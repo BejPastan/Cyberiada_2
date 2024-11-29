@@ -17,4 +17,13 @@ public class EnergyControll : MonoBehaviour
         }
         return false;
     }
+
+    public void AddEnergy(float amount)
+    {
+        energy += amount;
+        if (energy > maxEnergy)
+        {
+            energy = maxEnergy;
+        }
+    }
 }

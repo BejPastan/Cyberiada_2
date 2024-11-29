@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +10,6 @@ public class RobotMovement : MonoBehaviour
     public float acceleration = 1f;
 
     public float jumpForce = 5f;
-    public float highJumpForce = 10f;
 
     public bool canDoubleJump = false;
     bool doubleJumped = false;
@@ -27,6 +25,10 @@ public class RobotMovement : MonoBehaviour
     EnergyControll energyControll;
     float energyToJump = 1;
 
+    [Header("Special Action Settings")]
+    [SerializeField]
+    SpecialAction[] specialAction;
+
 
     private void Start()
     {
@@ -37,11 +39,11 @@ public class RobotMovement : MonoBehaviour
 
     private void Update()
     {
-        if (isGrounded())
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            doubleJumped = false;
-        }
+        //if (isGrounded())
+        //{
+        //    rb.velocity = new Vector2(0, rb.velocity.y);
+        //    doubleJumped = false;
+        //}
     }
 
     public void MoveLeft()
@@ -96,24 +98,23 @@ public class RobotMovement : MonoBehaviour
         }
     }
 
-    public void HighJump()
+    public void SpecialActionStart()
     {
-        if(energyControll == null || energyControll.UseEnergy(energyToJump))
+        Debug.Log(transform.name + " Special Action Start");
+        foreach (SpecialAction action in specialAction)
         {
-            if (isGrounded())
+            if (energyControll.UseEnergy(action.energyCost))
             {
-                rb.AddForce(Vector2.up * highJumpForce, ForceMode2D.Impulse);
-                doubleJumped = false;
-            }
-            else if (canDoubleJump && !doubleJumped)
-            {
-                rb.AddForce(Vector2.up * highJumpForce, ForceMode2D.Impulse);
-                doubleJumped = true;
+                action.Execute();
             }
         }
-        else
+    }
+
+    public void SpecialActionStop()
+    {
+        foreach (SpecialAction action in specialAction)
         {
-            Jump();
+            action.Stop();
         }
     }
 
